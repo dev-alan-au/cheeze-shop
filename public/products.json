@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "Cheese Pizza",
+    "description": "It's a Cheese Pizza!"
+  },
+  {
+    "id": 2,
+    "name": "Mac and Cheese",
+    "description": "Nice and gooey mac and cheese"
+  },
+  {
+    "id": 3,
+    "name": "Feta Salad",
+    "description": "Fresh salad with balsamic vinegar and olive oil dressing"
+  }
+]
