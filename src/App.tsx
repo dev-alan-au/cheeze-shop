@@ -1,21 +1,21 @@
-import { useAppDispatch, useAppSelector } from './hooks';
-import { selectUser, login, logout } from './store/user-slice';
-import Products from './components/Products';
-import Cart from './components/Cart';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import Layout from './Layouts/Main';
+import Home from './pages/Home';
+import Shop from './pages/Shop';
+import Account from './pages/Account';
 
 function App() {
-  // The `state` arg is correctly typed as `RootState` already
-  const user = useAppSelector(selectUser);
-  const dispatch = useAppDispatch();
-
   return (
-    <>
-      {user.authorised ? <button onClick={() => dispatch({ type: logout })}>Logout</button> : <button onClick={() => dispatch({ type: login, payload: { username: "ted", password: 'password' } })}>Login</button>}
-      {user.name}
-      {user.email}
-      <Products />
-      <Cart />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="shop" element={<Shop />} />
+          <Route path="account" element={<Account />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
