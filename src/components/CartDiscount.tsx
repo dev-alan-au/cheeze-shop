@@ -13,7 +13,7 @@ export default function CartDiscount() {
   const cart = useAppSelector(selectCart);
   const { data } = useQuery<Array<DiscountCodes>>('discount', () => axios.get('/discounts.json').then(res => res.data));
 
-  const handleDiscount = (ev: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDiscount = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const code = discountCode.toLowerCase();
     if (!data?.length) {
@@ -45,13 +45,13 @@ export default function CartDiscount() {
     <>
       {cart.discount ? (<div>
         <div><strong>{cart.discount.code}</strong><button onClick={removeDiscountCode}>Remove discount</button></div>
-      </div>) : (<div>
+      </div>) : (<form onSubmit={handleDiscount}>
         {errorMessage && <p>{errorMessage}</p>}
         <input type="text" onChange={(ev) => setDiscountCode(ev.target.value)} value={discountCode}
           className="border-gray-800 border-2"
         />
-        <button onClick={handleDiscount}>Add discount code</button>
-      </div>)}
+        <button type="submit">Add discount code</button>
+      </form>)}
     </>
   )
 }
