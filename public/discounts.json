@@ -1,0 +1,12 @@
+[
+  {
+    "code": "friyay",
+    "type": "percentage",
+    "value": 0.1
+  },
+  {
+    "code": "gimme5",
+    "type": "fixed",
+    "value": 5
+  }
+]

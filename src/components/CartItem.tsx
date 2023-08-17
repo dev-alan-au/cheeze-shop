@@ -1,6 +1,7 @@
 import { useAppDispatch } from '../hooks';
 import { Product } from '../models/Product';
 import { formatPrice } from '../helpers/currency';
+import { removeItem, decrementItem, incrementItem, updateItemQty } from '../store/cart-slice';
 
 interface CartItemProps {
   product: Product;
@@ -12,12 +13,12 @@ export default function CartItem({ product, qty }: CartItemProps) {
   const { name, price } = product;
 
   // TODO: refactor this
-  const removeItem = () => dispatch({ type: 'cart/removeItem', payload: { product } });
-  const decrementQty = () => dispatch({ type: 'cart/decrementItem', payload: { product } });
-  const incrementQty = () => dispatch({ type: 'cart/incrementItem', payload: { product } });
+  const removeCartItem = () => dispatch(removeItem(product));
+  const decrementQty = () => dispatch(decrementItem(product));
+  const incrementQty = () => dispatch(incrementItem(product));
   const handleQtyUpdate = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const newQty = Number(ev.target.value);
-    dispatch({ type: 'cart/updateItemQty', payload: { product, qty: newQty } });
+    dispatch(updateItemQty({ product, qty: newQty }));
   }
 
   return (
@@ -29,7 +30,7 @@ export default function CartItem({ product, qty }: CartItemProps) {
         <button onClick={incrementQty}>+</button>
       </div>
       <div className="flex-auto text-right">{formatPrice(price * qty)}</div>
-      <div className="flex-auto text-right"><button onClick={removeItem}>Remove</button></div>
+      <div className="flex-auto text-right"><button onClick={removeCartItem}>Remove</button></div>
     </div>
   )
 }

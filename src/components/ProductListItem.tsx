@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { selectCart } from '../store/cart-slice';
+import { selectCart, decrementItem, incrementItem, updateItemQty } from '../store/cart-slice';
 import { formatPrice } from '../helpers/currency';
 import { Product } from '../models/Product';
 
@@ -13,11 +13,11 @@ export default function ProductListItem({ product }: ProductListItemProps) {
   const dispatch = useAppDispatch();
 
   // refactor this
-  const decrementQty = () => dispatch({ type: 'cart/decrementItem', payload: { product } });
-  const incrementQty = () => dispatch({ type: 'cart/incrementItem', payload: { product } });
+  const decrementQty = () => dispatch(decrementItem(product));
+  const incrementQty = () => dispatch(incrementItem(product));
   const handleQtyUpdate = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const newQty = Number(ev.target.value);
-    dispatch({ type: 'cart/updateItemQty', payload: { product, qty: newQty } });
+    dispatch(updateItemQty({ product, qty: newQty }));
   }
 
   const itemInCart = cart.items.find(item => item.product.id == product.id);

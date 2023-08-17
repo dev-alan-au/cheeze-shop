@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from './hooks';
-import { selectUser } from './store/user-slice';
+import { selectUser, login, logout } from './store/user-slice';
 import Products from './components/Products';
 import Cart from './components/Cart';
 
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      {user.authorised ? <button onClick={() => dispatch({ type: 'user/logout' })}>Logout</button> : <button onClick={() => dispatch({ type: 'user/login', payload: { username: "ted", password: 'password' } })}>Login</button>}
+      {user.authorised ? <button onClick={() => dispatch({ type: logout })}>Logout</button> : <button onClick={() => dispatch({ type: login, payload: { username: "ted", password: 'password' } })}>Login</button>}
       {user.name}
       {user.email}
       <Products />

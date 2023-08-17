@@ -7,7 +7,7 @@ type CartLineItem = {
   qty: number;
 }
 
-type Discount = {
+export type Discount = {
   code: string;
   discountAsPercentage?: number;
   discountAsFixedAmount?: number;
@@ -60,21 +60,17 @@ export const cartSlice = createSlice({
       const { product, qty } = action.payload;
       return updateCartItemQty(state, product, qty);
     },
-    addItem: (state, action: PayloadAction<CartLineItem>) => {
-      const { product } = action.payload;
-      return updateCartItemQty(state, product, 1);
+    addItem: (state, action: PayloadAction<Product>) => {
+      return updateCartItemQty(state, action.payload, 1);
     },
-    removeItem: (state, action: PayloadAction<CartLineItem>) => {
-      const { product } = action.payload;
-      return updateCartItemQty(state, product, 0);
+    removeItem: (state, action: PayloadAction<Product>) => {
+      return updateCartItemQty(state, action.payload, 0);
     },
-    incrementItem: (state, action: PayloadAction<CartLineItem>) => {
-      const { product } = action.payload;
-      return incrementCartItemQty(state, product);
+    incrementItem: (state, action: PayloadAction<Product>) => {
+      return incrementCartItemQty(state, action.payload);
     },
-    decrementItem: (state, action: PayloadAction<CartLineItem>) => {
-      const { product } = action.payload;
-      return decrementCartItemQty(state, product);
+    decrementItem: (state, action: PayloadAction<Product>) => {
+      return decrementCartItemQty(state, action.payload);
     },
     addDiscount: (state, action: PayloadAction<Discount>) => {
       // validation on server-side during checkout
@@ -86,6 +82,6 @@ export const cartSlice = createSlice({
   }
 });
 
-export const { updateItemQty, addItem, removeItem, decrementItem, incrementItem } = cartSlice.actions;
+export const { updateItemQty, addItem, removeItem, decrementItem, incrementItem, addDiscount, removeDiscount } = cartSlice.actions;
 export const selectCart = (state: RootState) => state.cart;
 export default cartSlice.reducer;
