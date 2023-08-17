@@ -1,11 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './store';
-
-type Product = {
-  id: string;
-  name: string;
-  price: number;
-}
+import { Product } from '../models/Product';
 
 type CartLineItem = {
   product: Product;
