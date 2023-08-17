@@ -1,4 +1,3 @@
--Add user auth
+-Add user auth - ReactQuery
 -Save user cart
--Qty check
--Add discount
+-Styling - Tailwind
