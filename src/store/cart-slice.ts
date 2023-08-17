@@ -14,13 +14,15 @@ export type Cart = {
 
 const emptyCart: Cart = {items: []}
 
-const updateCartItemQty = (cart: Cart, product: Product, qty: number) => {
-  const hasExistingItem = cart.items.find(item => item.product.id == product.id);
+const findItemInCart = (cart: Cart, product: Product) => cart.items.find(item => item.product.id == product.id);
 
-  if(hasExistingItem) {
+const updateCartItemQty = (cart: Cart, product: Product, qty: number) => {
+  const existingItem = findItemInCart(cart, product);
+
+  if(existingItem) {
     return {...cart, items: cart.items.map(item => {
       if(item.product.id == product.id) {
-        return {...item, qty: item.qty + qty}
+        return {...item, qty: qty > 0 ? qty : 0}
       }
       return item;
     })}
@@ -28,25 +30,47 @@ const updateCartItemQty = (cart: Cart, product: Product, qty: number) => {
   return ({...cart, items: [...cart.items, {product, qty}]})
 }
 
+const incrementCartItemQty = (cart: Cart, product: Product) => {
+  const existingItem = findItemInCart(cart, product);
+  return updateCartItemQty(cart, product, existingItem ? existingItem.qty + 1 : 1);
+}
+
+const decrementCartItemQty = (cart: Cart, product: Product) => {
+  const existingItem = findItemInCart(cart, product);
+  if(existingItem) {
+    return updateCartItemQty(cart, product, existingItem.qty - 1);
+  }
+  return cart;
+}
+
+
 export const cartSlice = createSlice({
   name: 'cart',
   initialState: emptyCart,
   reducers: {
     updateItemQty: (state, action: PayloadAction<CartLineItem>) => {
       const { product, qty } = action.payload;
-      updateCartItemQty(state, product, qty);
+      return updateCartItemQty(state, product, qty);
     },
     addItem: (state, action: PayloadAction<CartLineItem>) => {
       const { product } = action.payload;
-      updateCartItemQty(state, product, 1);
+      return updateCartItemQty(state, product, 1);
     },
     removeItem: (state, action: PayloadAction<CartLineItem>) => {
       const { product } = action.payload;
-      updateCartItemQty(state, product, 0);
+      return updateCartItemQty(state, product, 0);
     },
+    incrementItem: (state, action: PayloadAction<CartLineItem>) => {
+      const { product } = action.payload;
+      return incrementCartItemQty(state, product);
+    },
+    decrementItem: (state, action: PayloadAction<CartLineItem>) => {
+      const { product } = action.payload;
+      return decrementCartItemQty(state, product);
+    }
   }
 });
 
-export const { updateItemQty, addItem, removeItem } = cartSlice.actions;
+export const { updateItemQty, addItem, removeItem, decrementItem, incrementItem } = cartSlice.actions;
 export const selectCart = (state: RootState) => state.cart;
 export default cartSlice.reducer;
