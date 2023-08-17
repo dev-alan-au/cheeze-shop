@@ -7,9 +7,15 @@ type CartLineItem = {
   qty: number;
 }
 
+type Discount = {
+  code: string;
+  discountAsPercentage?: number;
+  discountAsFixedAmount?: number;
+}
+
 export type Cart = {
-  items: CartLineItem[],
-  discountCode?: string,
+  items: CartLineItem[];
+  discount?: Discount;
 }
 
 const emptyCart: Cart = {items: []}
@@ -70,6 +76,13 @@ export const cartSlice = createSlice({
       const { product } = action.payload;
       return decrementCartItemQty(state, product);
     },
+    addDiscount: (state, action: PayloadAction<Discount>) => {
+      // validation on server-side during checkout
+      return {...state, discount: action.payload };
+    },
+    removeDiscount: (state) => {
+      return {...state, discount: undefined };
+    }
   }
 });
 
