@@ -25,6 +25,7 @@ function ProductList({ product }: { product: Product }) {
   const cart = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
 
+  // refactor this
   const decrementQty = () => dispatch({ type: 'cart/decrementItem', payload: { product } });
   const incrementQty = () => dispatch({ type: 'cart/incrementItem', payload: { product } });
   const handleQtyUpdate = (ev: React.ChangeEvent<HTMLInputElement>) => {
