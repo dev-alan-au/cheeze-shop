@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from './hooks';
 import { selectUser } from './store/user-slice';
 import Products from './components/Products';
+import Cart from './components/Cart';
 
 function App() {
   // The `state` arg is correctly typed as `RootState` already
@@ -13,6 +14,7 @@ function App() {
       {user.name}
       {user.email}
       <Products />
+      <Cart />
     </>
   )
 }

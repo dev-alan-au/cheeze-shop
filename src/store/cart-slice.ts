@@ -20,6 +20,9 @@ const updateCartItemQty = (cart: Cart, product: Product, qty: number) => {
   const existingItem = findItemInCart(cart, product);
 
   if(existingItem) {
+    if(qty == 0) {
+      return {...cart, items: cart.items.filter(item => item.product.id != product.id)};
+    }
     return {...cart, items: cart.items.map(item => {
       if(item.product.id == product.id) {
         return {...item, qty: qty > 0 ? qty : 0}
@@ -42,7 +45,6 @@ const decrementCartItemQty = (cart: Cart, product: Product) => {
   }
   return cart;
 }
-
 
 export const cartSlice = createSlice({
   name: 'cart',
@@ -67,7 +69,7 @@ export const cartSlice = createSlice({
     decrementItem: (state, action: PayloadAction<CartLineItem>) => {
       const { product } = action.payload;
       return decrementCartItemQty(state, product);
-    }
+    },
   }
 });
 

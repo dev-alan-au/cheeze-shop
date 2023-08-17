@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { Product } from '../models/Product';
 import { selectCart } from '../store/cart-slice';
+import { formatPrice } from '../helpers/currency';
 
 export default function Products() {
   const { data: products, isLoading, isError } = useQuery<Array<Product>>('products', () => axios.get('/products.json').then(res => res.data));
@@ -17,10 +18,6 @@ export default function Products() {
       {products.map(product => <ProductList product={product} key={product.id} />)}
     </div>
   )
-}
-
-function formatPrice(price: number) {
-  return `$${price.toFixed(2)}`;
 }
 
 function ProductList({ product }: { product: Product }) {
