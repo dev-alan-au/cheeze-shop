@@ -4,7 +4,6 @@ import { Button } from 'react-daisyui';
 
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { Theme, selectTheme, updateTheme } from '../store/theme-slice';
-import { store } from '../store/store';
 import Nav from '../components/Nav';
 import Cart from '../components/Cart';
 
@@ -25,19 +24,16 @@ export default function MainLayout() {
     setHTMLTheme(theme);
   }
 
-  const unsubscribe = store.subscribe(() => {
-    console.log('state', store.getState())
-    handleStoreChange(store.getState().theme)
-  });
-
   useEffect(() => {
     setHTMLTheme(theme);
-
-    return unsubscribe();
   }, []);
 
+  useEffect(() => {
+    handleStoreChange(theme);
+  }, [theme]);
+
   const handleThemeChange = () => {
-    dispatch(updateTheme(store.getState().theme == 'light' ? 'dark' : 'light' as Theme))
+    dispatch(updateTheme(theme == 'light' ? 'dark' : 'light' as Theme))
   };
 
   return (
