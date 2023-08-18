@@ -25,7 +25,10 @@ export default function MainLayout() {
     setHTMLTheme(theme);
   }
 
-  const unsubscribe = store.subscribe(() => { handleStoreChange(store.getState().theme) });
+  const unsubscribe = store.subscribe(() => {
+    console.log('state', store.getState())
+    handleStoreChange(store.getState().theme)
+  });
 
   useEffect(() => {
     setHTMLTheme(theme);
@@ -34,7 +37,6 @@ export default function MainLayout() {
   }, []);
 
   const handleThemeChange = () => {
-    console.log("click", store.getState().theme, theme)
     dispatch(updateTheme(store.getState().theme == 'light' ? 'dark' : 'light' as Theme))
   };
 
