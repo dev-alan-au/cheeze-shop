@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Button, Input } from 'react-daisyui';
+
 import { useAppDispatch } from '../hooks';
 import { login } from '../store/user-slice';
 
@@ -14,9 +16,19 @@ export default function NavLoginForm() {
 
   return (
     <form onSubmit={handleLogin}>
-      <input type="text" placeholder="username" value={username} onChange={ev => setUsername(ev.target.value)} />
-      <input type="password" placeholder="password" value={password} onChange={ev => setPassword(ev.target.value)} />
-      <button type="submit" className="btn">Login</button>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Username:</span>
+          <Input type="text" value={username} onChange={ev => setUsername(ev.target.value)} />
+        </label>
+      </div>
+      <div className="form-control w-full max-w-xs">
+        <label className="label">
+          <span className="label-text">Password:</span>
+          <Input type="password" value={password} onChange={ev => setPassword(ev.target.value)} />
+        </label>
+      </div>
+      <Button type="submit">Login</Button>
     </form>
   )
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import { Button, Input } from 'react-daisyui';
 
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { addDiscount, removeDiscount, selectCart } from '../store/cart-slice';
@@ -44,13 +45,14 @@ export default function CartDiscount() {
   return (
     <>
       {cart.discount ? (<div>
-        <div><strong>{cart.discount.code}</strong><button onClick={removeDiscountCode}>Remove discount</button></div>
+        <div><strong>{cart.discount.code}</strong><Button onClick={removeDiscountCode}>Remove discount</Button></div>
       </div>) : (<form onSubmit={handleDiscount}>
         {errorMessage && <p>{errorMessage}</p>}
-        <input type="text" onChange={(ev) => setDiscountCode(ev.target.value)} value={discountCode}
-          className="border-gray-800 border-2"
-        />
-        <button type="submit" className="btn">Add discount code</button>
+        <label className="label">
+          <span className="label-text">Discount Code:</span>
+          <Input type="text" onChange={(ev) => setDiscountCode(ev.target.value)} value={discountCode} />
+        </label>
+        <Button type="submit">Add discount code</Button>
       </form>)}
     </>
   )

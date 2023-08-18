@@ -12,7 +12,7 @@ export default function MainLayout() {
   const theme = useAppSelector(selectTheme);
   const dispatch = useAppDispatch();
 
-  const setTheme = (theme: Theme) => {
+  const setHTMLTheme = (theme: Theme) => {
     document.getElementsByTagName('html')[0].setAttribute('data-theme', theme as string);
   }
 
@@ -22,19 +22,19 @@ export default function MainLayout() {
 
   const handleStoreChange = (theme: Theme) => {
     storeTheme(theme);
-    setTheme(theme);
+    setHTMLTheme(theme);
   }
 
   const unsubscribe = store.subscribe(() => { handleStoreChange(store.getState().theme) });
 
   useEffect(() => {
-    setTheme(theme);
+    setHTMLTheme(theme);
 
     return unsubscribe();
   }, []);
 
   const handleThemeChange = () => {
-    dispatch(updateTheme(store.getState().theme == 'cupcake' ? 'dark' : 'cupcake' as Theme))
+    dispatch(updateTheme(store.getState().theme == 'light' ? 'dark' : 'light' as Theme))
   };
 
   return (

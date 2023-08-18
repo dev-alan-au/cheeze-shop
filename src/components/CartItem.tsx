@@ -1,3 +1,5 @@
+import { Button, Input, Join } from 'react-daisyui';
+
 import { useAppDispatch } from '../hooks';
 import { Product } from '../models/Product';
 import { formatPrice } from '../helpers/currency';
@@ -25,12 +27,16 @@ export default function CartItem({ product, qty }: CartItemProps) {
     <div className="flex">
       <div className="flex-1">{name}</div>
       <div className="flex-1">
-        <button onClick={decrementQty} className="btn">-</button>
-        <input type="number" min={0} step={1} value={qty} onChange={handleQtyUpdate} className="text-center" />
-        <button onClick={incrementQty} className="btn">+</button>
+        <Join>
+          <Button onClick={decrementQty}>-</Button>
+          <Input type="number" min={0} step={1} value={qty} onChange={handleQtyUpdate} className="mx-2 text-center w-32" />
+          <Button onClick={incrementQty}>+</Button>
+        </Join>
       </div>
       <div className="flex-auto text-right">{formatPrice(price * qty)}</div>
-      <div className="flex-auto text-right"><button onClick={removeCartItem} className="btn">Remove</button></div>
+      <div className="flex-auto text-right">
+        <Button onClick={removeCartItem}>Remove</Button>
+      </div>
     </div>
   )
 }

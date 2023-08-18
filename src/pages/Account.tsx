@@ -1,3 +1,5 @@
+import { Button } from 'react-daisyui';
+
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { selectUser, logout } from '../store/user-slice';
 
@@ -11,7 +13,7 @@ export default function AccountPage() {
     <div>
       {user.name}
       {user.email}
-      <button onClick={() => dispatch(logout())} className="btn w-60 rounded-full">Logout</button>
+      <Button onClick={() => dispatch(logout())} className="btn w-60 rounded-full">Logout</Button>
     </div>
   )
 }
