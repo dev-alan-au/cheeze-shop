@@ -34,6 +34,7 @@ export default function MainLayout() {
   }, []);
 
   const handleThemeChange = () => {
+    console.log("click", store.getState().theme, theme)
     dispatch(updateTheme(store.getState().theme == 'light' ? 'dark' : 'light' as Theme))
   };
 
