@@ -1488,6 +1488,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+react-daisyui@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/react-daisyui/-/react-daisyui-4.0.4.tgz#7e3922ccc067b738808c45e144ff915743a782b4"
+  integrity sha512-XXmk/x3qSu2WVUKS6Zx17lnfwzpKScims/8QOhFksQ1AdJOMS9mTlAOKqAz4IRGWWd7lIyd6fQ7+WE1gsQtTaQ==
+
 react-dom@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"

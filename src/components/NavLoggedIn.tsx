@@ -5,6 +5,6 @@ export default function NavLoggedIn() {
   const dispatch = useAppDispatch();
 
   return (
-    <button onClick={() => dispatch(logout())}>Logout</button>
+    <button onClick={() => dispatch(logout())} className="btn">Logout</button>
   )
 }

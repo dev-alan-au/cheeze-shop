@@ -25,12 +25,12 @@ export default function CartItem({ product, qty }: CartItemProps) {
     <div className="flex">
       <div className="flex-1">{name}</div>
       <div className="flex-1">
-        <button onClick={decrementQty}>-</button>
+        <button onClick={decrementQty} className="btn">-</button>
         <input type="number" min={0} step={1} value={qty} onChange={handleQtyUpdate} className="text-center" />
-        <button onClick={incrementQty}>+</button>
+        <button onClick={incrementQty} className="btn">+</button>
       </div>
       <div className="flex-auto text-right">{formatPrice(price * qty)}</div>
-      <div className="flex-auto text-right"><button onClick={removeCartItem}>Remove</button></div>
+      <div className="flex-auto text-right"><button onClick={removeCartItem} className="btn">Remove</button></div>
     </div>
   )
 }

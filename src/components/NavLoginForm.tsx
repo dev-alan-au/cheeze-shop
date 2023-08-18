@@ -16,7 +16,7 @@ export default function NavLoginForm() {
     <form onSubmit={handleLogin}>
       <input type="text" placeholder="username" value={username} onChange={ev => setUsername(ev.target.value)} />
       <input type="password" placeholder="password" value={password} onChange={ev => setPassword(ev.target.value)} />
-      <button type="submit">Login</button>
+      <button type="submit" className="btn">Login</button>
     </form>
   )
 }

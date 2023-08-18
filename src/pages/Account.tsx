@@ -11,7 +11,7 @@ export default function AccountPage() {
     <div>
       {user.name}
       {user.email}
-      <button onClick={() => dispatch(logout())}>Logout</button>
+      <button onClick={() => dispatch(logout())} className="btn w-60 rounded-full">Logout</button>
     </div>
   )
 }

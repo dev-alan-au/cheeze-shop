@@ -27,9 +27,9 @@ export default function ProductListItem({ product }: ProductListItemProps) {
       <div className="flex-1">{name}</div>
       <div className="flex-1">{description}</div>
       <div className="flex-1">
-        <button onClick={decrementQty}>-</button>
+        <button onClick={decrementQty} className="btn">-</button>
         <input type="number" min={0} step={1} value={itemInCart?.qty || 0} onChange={handleQtyUpdate} className="text-center" />
-        <button onClick={incrementQty}>+</button>
+        <button onClick={incrementQty} className="btn">+</button>
       </div>
       <div className="flex-1 text-right">{formatPrice(price)}</div>
     </div>

@@ -50,7 +50,7 @@ export default function CartDiscount() {
         <input type="text" onChange={(ev) => setDiscountCode(ev.target.value)} value={discountCode}
           className="border-gray-800 border-2"
         />
-        <button type="submit">Add discount code</button>
+        <button type="submit" className="btn">Add discount code</button>
       </form>)}
     </>
   )
