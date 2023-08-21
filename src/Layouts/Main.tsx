@@ -1,48 +1,23 @@
-import { useEffect } from 'react';
 import { Outlet } from 'react-router';
-import { Button } from 'react-daisyui';
+import { Drawer } from 'react-daisyui';
 
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { Theme, selectTheme, updateTheme } from '../store/theme-slice';
+import { useStore } from '../hooks/useStore';
+import { toggleVisibility, selectAside } from '../store/aside-slice';
 import Nav from '../components/Nav';
 import Cart from '../components/Cart';
 
 export default function MainLayout() {
-  const theme = useAppSelector(selectTheme);
+  const { useAppDispatch, useAppSelector } = useStore();
+  const asideVisibility = useAppSelector(selectAside);
   const dispatch = useAppDispatch();
-
-  const setHTMLTheme = (theme: Theme) => {
-    document.getElementsByTagName('html')[0].setAttribute('data-theme', theme as string);
-  }
-
-  const storeTheme = (theme: Theme) => {
-    localStorage.setItem('theme', theme);
-  }
-
-  const handleStoreChange = (theme: Theme) => {
-    storeTheme(theme);
-    setHTMLTheme(theme);
-  }
-
-  useEffect(() => {
-    setHTMLTheme(theme);
-  }, []);
-
-  useEffect(() => {
-    handleStoreChange(theme);
-  }, [theme]);
-
-  const handleThemeChange = () => {
-    dispatch(updateTheme(theme == 'light' ? 'dark' : 'light' as Theme))
-  };
 
   return (
     <>
-      <Button onClick={handleThemeChange}></Button>
       <Nav />
-      <Outlet />
-      {/* like Slot of children */}
-      <Cart />
+      <main className="p-5">
+        <Outlet />
+      </main>
+      <Drawer open={asideVisibility} onClickOverlay={() => dispatch(toggleVisibility())} side={<div className="p-4 w-11/12 h-full bg-base-200 text-base-content"><Cart /></div>} />
     </>
   )
 }

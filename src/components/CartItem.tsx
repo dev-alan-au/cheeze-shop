@@ -1,6 +1,6 @@
 import { Button, Input, Join } from 'react-daisyui';
 
-import { useAppDispatch } from '../hooks';
+import { useStore } from '../hooks/useStore';
 import { Product } from '../models/Product';
 import { formatPrice } from '../helpers/currency';
 import { removeItem, decrementItem, incrementItem, updateItemQty } from '../store/cart-slice';
@@ -11,6 +11,7 @@ interface CartItemProps {
 }
 
 export default function CartItem({ product, qty }: CartItemProps) {
+  const { useAppDispatch } = useStore();
   const dispatch = useAppDispatch();
   const { name, price } = product;
 
@@ -24,18 +25,18 @@ export default function CartItem({ product, qty }: CartItemProps) {
   }
 
   return (
-    <div className="flex">
+    <div className="flex items-center mb-8">
       <div className="flex-1">{name}</div>
       <div className="flex-1">
-        <Join>
-          <Button onClick={decrementQty}>-</Button>
+        <Join className="items-center">
+          <Button onClick={decrementQty} className="btn-circle btn-outline btn-sm">-</Button>
           <Input type="number" min={0} step={1} value={qty} onChange={handleQtyUpdate} className="mx-2 text-center w-32" />
-          <Button onClick={incrementQty}>+</Button>
+          <Button onClick={incrementQty} className="btn-circle btn-outline btn-sm">+</Button>
         </Join>
       </div>
       <div className="flex-auto text-right">{formatPrice(price * qty)}</div>
       <div className="flex-auto text-right">
-        <Button onClick={removeCartItem}>Remove</Button>
+        <Button onClick={removeCartItem} className="btn-circle btn-error">x</Button>
       </div>
     </div>
   )

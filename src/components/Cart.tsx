@@ -1,4 +1,6 @@
-import { useAppSelector } from '../hooks';
+import { Divider } from 'react-daisyui';
+
+import { useStore } from '../hooks/useStore';
 import { Cart, selectCart } from '../store/cart-slice';
 import { formatPrice } from '../helpers/currency';
 import CartItem from './CartItem';
@@ -27,17 +29,24 @@ function applyDiscount(cart: Cart) {
 }
 
 export default function Cart() {
+  const { useAppSelector } = useStore();
   const cart = useAppSelector(selectCart);
   if (!cart.items.length) return <p>No items in cart.</p>
 
   return (
     <>
-      <p>Cart</p>
+      <h2 className="text-xl">Cart</h2>
+      <Divider />
       {cart.items.map(item => <CartItem key={item.product.id} product={item.product} qty={item.qty} />)}
       <CartDiscount />
-      <div>Total: {
-        formatPrice(applyDiscount(cart)(calculateSubTotal(cart))) //currying for fun
-      }</div>
+      <Divider />
+      <div className="text-right">
+        Total: <strong>
+          {
+            formatPrice(applyDiscount(cart)(calculateSubTotal(cart))) //currying for fun
+          }
+        </strong>
+      </div>
     </>
   )
 }

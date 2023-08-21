@@ -1,6 +1,6 @@
 import { Button, Input, Join } from 'react-daisyui';
 
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useStore } from '../hooks/useStore';
 import { selectCart, decrementItem, incrementItem, updateItemQty } from '../store/cart-slice';
 import { formatPrice } from '../helpers/currency';
 import { Product } from '../models/Product';
@@ -10,6 +10,7 @@ interface ProductListItemProps {
 }
 
 export default function ProductListItem({ product }: ProductListItemProps) {
+  const { useAppDispatch, useAppSelector } = useStore();
   const { name, description, price } = product;
   const cart = useAppSelector(selectCart);
   const dispatch = useAppDispatch();
@@ -25,14 +26,14 @@ export default function ProductListItem({ product }: ProductListItemProps) {
   const itemInCart = cart.items.find(item => item.product.id == product.id);
 
   return (
-    <div className="flex gap-2 mb-2">
+    <div className="flex gap-2 mb-8">
       <div className="flex-1">{name}</div>
       <div className="flex-1">{description}</div>
       <div className="flex-1">
-        <Join>
-          <Button onClick={decrementQty}>-</Button>
+        <Join className="items-center">
+          <Button onClick={decrementQty} className="btn-circle btn-outline btn-sm">-</Button>
           <Input type="number" min={0} step={1} value={itemInCart?.qty || 0} onChange={handleQtyUpdate} className="mx-2 text-center w-32" />
-          <Button onClick={incrementQty}>+</Button>
+          <Button onClick={incrementQty} className="btn-circle btn-outline btn-sm">+</Button>
         </Join>
       </div>
       <div className="flex-1 text-right">{formatPrice(price)}</div>
